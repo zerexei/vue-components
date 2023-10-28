@@ -16,6 +16,6 @@ const inputField = ref('');
 
   <!-- Forms -->
   <section class="section">
-    <InputField :value="inputField"  />
+    <InputField :value="inputField" />
   </section>
 </template>

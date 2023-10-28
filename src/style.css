@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 .bug {
-  border: 1px solid red;
+  border: 1px solid red !important;
+}
+
+.font-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
 }
 
 .section {
@@ -27,11 +35,11 @@
 
 /* FORMS */
 .label {
-  @apply block mb-2 text-sm font-medium;
+  @apply block mb-px text-sm font-medium;
 }
 
 .input {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5;
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-indigo-500 block w-full p-2.5 focus-visible:outline-none focus:border-indigo-500;
 }
 
 .button {}
