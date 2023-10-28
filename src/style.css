@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bug {
+  border: 1px solid red;
+}
+
+.section {
+  border: 1px solid red;
+  margin-bottom: 5rem;
+  padding: 2rem;
+}
+
+/* HEADING */
+.heading-1 {
+  @apply mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl;
+}
+
+.heading-2 {
+  @apply text-4xl font-bold;
+}
+
+.heading-3 {
+  @apply text-3xl font-bold;
+}
+
+/* FORMS */
+.label {
+  @apply block mb-2 text-sm font-medium;
+}
+
+.input {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5;
+}
+
+.button {}
