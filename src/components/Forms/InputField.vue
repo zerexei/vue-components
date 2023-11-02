@@ -1,136 +1,70 @@
 <script setup lang="ts">
 interface InputFieldProps {
+  modelValue: string;
+
+  label?: string;
+
+  icon?: object;
+  iconPosition?: string;
+
   type?: string;
+
   minLength?: string;
   maxLength?: string;
   required?: boolean;
+  placeholder?: string;
   pattern?: string;
+
+  error?: string;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {
   type: 'text',
   required: false,
+  iconPosition: 'left',
 });
 
-const label = 'Email Address';
-const icon = false;
-const iconPosition = 'right';
-const error = 'Email address is required';
+const emits = defineEmits(['update:modelValue']);
 </script>
 
 <template>
-  <form @submit.prevent="" class="flex flex-col">
-    <button
-      type="submit"
-      class="py-1.5 px-3.5 rounded-md bg-indigo-500 text-white mb-6"
-    >
-      Submit
-    </button>
-    <div class="mb-4">
-      <!-- InputField.vue -->
-      <label class="label">Email Address</label>
-      <input :type="type" class="input" />
-    </div>
+  <div class="w-full">
+    <slot name="label">
+      <label class="label">
+        {{ label }}
+      </label>
+    </slot>
 
-    <!-- <InputUrl v-if="type === 'URL'" />
-    <InputField v-else /> -->
-
-    <div class="mb-4">
-      <!-- InputEmail.vue -->
-      <label class="label">Email</label>
-      <input
-        type="email"
-        class="input invalid:border-red-500 invalid:ring-red-500 valid:border-green-500"
-        autocomplete="email"
-      />
-    </div>
-
-    <!-- 
-
-  icon:
-  icon-position: left
-
-
-
-
- -->
-    <div class="relative mb-6">
-      <!-- Label -->
-      <label v-if="label" class="label">{{ label }}</label>
-
-      <!-- Icon -->
+    <div class="relative">
+      <!--  -->
       <div
         v-if="icon"
-        :class="[
-          'absolute inset-y-0 flex items-center pointer-events-none',
-          iconPosition === 'left' ? 'left-0 pl-3.5' : 'right-0 pr-3.5',
-        ]"
+        class="absolute inset-y-0 flex items-center pointer-events-none"
+        :class="[iconPosition === 'right' ? 'right-0 pr-3.5' : 'left-0 pl-3.5']"
       >
-        <slot name="icon" />
+        <component :is="icon" class="w-5 h-5 text-slate-500"></component>
       </div>
-
-      <!-- Input -->
+      <!--  -->
       <input
+        :value="modelValue"
+        @input="(event) => emits('update:modelValue', event.target.value)"
         :type="type"
-        :required="required"
-        :minLength="minLength"
-        :maxlength="maxLength"
-        :pattern="pattern"
+        class="input"
         :class="[
-          'bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-indigo-500 block w-full p-2.5 focus-visible:outline-none focus:border-indigo-500',
-          icon && (iconPosition === 'left' ? '!pl-10' : '!pr-10'),
+          icon && (iconPosition === 'right' ? '!pr-10' : '!pl-10'),
           error ? 'border-red-400' : 'border-gray-300',
         ]"
-        placeholder="name@flowbite.com"
+        :placeholder="placeholder"
+        :required="required"
+        :pattern="pattern"
+        :maxlength="maxLength"
+        :minlength="minLength"
       />
-
-      <p v-if="error" class="mt-2 text-sm text-red-600">
-        {{ error }}
-      </p>
     </div>
 
-    <div class="mb-4">
-      <!-- InputPassword.vue -->
-      <label class="label">Password</label>
-      <input type="password" class="input" autocomplete="current-password" />
-    </div>
-
-    <div class="mb-4">
-      <label class="label">Number</label>
-      <input type="number" class="input" />
-    </div>
-
-    <div class="mb-4">
-      <label class="label">URL</label>
-      <input type="url" class="input" />
-    </div>
-
-    <div class="flex gap-4">
-      <div class="flex-1 mb-4">
-        <label class="label">Date</label>
-        <input type="date" class="input" />
-      </div>
-      <div class="flex-1 mb-4">
-        <label class="label">Date</label>
-        <input type="date" class="input" />
-      </div>
-    </div>
-
-    <div class="mb-4">
-      <label class="label">Search</label>
-      <input type="search" class="input" />
-    </div>
-
-    <div class="mb-4">
-      <label class="label">File</label>
-      <input type="file" accept=".doc,.docx" multiple class="input" />
-    </div>
-
-    <hr class="block my-6 border-b-2 border-b-slate-700/80" />
-
-    <input type="number" inputmode="numeric" pattern="\d*" class="input" />
-
-    <input type="checkbox" class="" />
-    <input type="radio" class="" />
-  </form>
+    <!--  -->
+    <p class="ml-1 -mt-px text-sm text-red-400">
+      {{ error }}
+    </p>
+  </div>
 </template>
